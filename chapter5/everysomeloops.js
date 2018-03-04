@@ -15,7 +15,7 @@ function every(array, test){
 //true if something is False
 
 function every(array, test){
-  return !(array.some(item=>!item(test)))
+  return !(array.some(item=>!test(item))
 }
 /*
 for both functions:
@@ -34,7 +34,7 @@ manipulate the inner workings of some (at least i couldnt)
 so the trick is that instead of handing the test function
 directly to some you hand it an arrow function which allows
 you to run each individual item through the test .
-by negating (!(test)) the result of that test, the only
+by negating (!test(item)) the result of that test, the only
 time it returns true is if something FAILS that test.
 so you trick some into handing back that fake true VALUE
 and then you negate it (!array.some . . .) right before you return
