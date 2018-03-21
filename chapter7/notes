@@ -1,0 +1,84 @@
+Definitions:
+>Robot:
+  -function that takes a state object
+  -gets passed memory
+  -RETURNS obj. containing direction it wants to move in and memory value(which will be passed back to it next time it is called)
+
+>VillageState:
+  -tells us where the robot is and where the parcels are
+  -updates (new instance is created) on every move
+
+>Parcels:
+  -contain:
+    -location (current)
+    -address (desination bound for)
+=====================================
+Functions:
+>runRobotAnimation **same as runRobot just pretty**
+>buildGraph(edges)
+  -takes in roads variable (array of locations as strings)
+  -RETURNS roadGraph
+    -which is an array of locations
+    -which ea. have an array of neighbors
+-------------------------------------
+>runRobot(state, robot, memory)**not a robot**
+  -moves robot until all parcels are delivered
+  -console.logs when it moves somewhere
+-------------------------------------
+
+>randomPick(array)
+  -RETURNS item from random array indeces
+-------------------------------------
+
+>randomRobot(state) **ignores memory handed to it bc it makes a random choice**
+  -RETURNS {direction: randomPick(roadGraph[state.place])}
+  -essentially moves the robot fwd at random
+-------------------------------------
+VillageState.random = (parcelCount=5)
+  -takes a number to generate a random list of parcel (PLACEs to be picked up, and ADDRESSes to be delivered to)
+
+-------------------------------------
+routeRobot(state, memory)
+  -runs through memory and then thru mailRoute
+  -RETURNS {direction: memory[0], memory: memory.slice(1)}
+--------------------------------------
+findRoute(graph, from, to)
+  -takes in roadGraph
+  -RETURNS a route from PLACE to ADDRESS of parcels
+---------------------------------------
+goalOrientedRobot({place, parcels}, route)
+  -place and parcels are pulled from VillageState
+  -route is analogous to memory
+  -uses memory value (route) as a list of directions to move in
+  -if the route is empty it moves on to the next parcel.
+  -route=-0 it either:
+    -picks up next parcel
+    -delivers next parcel
+=====================================
+Classes:
+>VillageState(place, parcels)
+  -holds the current parcels to be delivered
+  -shows where the robot currently is
+  >move(destination)
+    -moves the robot fwd if its a valid moves
+    -delivers parcels
+    -picks up parcels
+=====================================
+Variables:
+
+const roads = [
+  "Alice's House-Bob's House",   "Alice's House-Cabin",
+  "Alice's House-Post Office",   "Bob's House-Town Hall",
+  "Daria's House-Ernie's House", "Daria's House-Town Hall",
+  "Ernie's House-Grete's House", "Grete's House-Farm",
+  "Grete's House-Shop",          "Marketplace-Farm",
+  "Marketplace-Post Office",     "Marketplace-Shop",
+  "Marketplace-Town Hall",       "Shop-Town Hall"
+];
+
+const mailRoute = [
+  "Alice's House", "Cabin", "Alice's House", "Bob's House",
+  "Town Hall", "Daria's House", "Ernie's House",
+  "Grete's House", "Shop", "Grete's House", "Farm",
+  "Marketplace", "Post Office"
+];
