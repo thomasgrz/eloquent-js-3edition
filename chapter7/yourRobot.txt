@@ -1,0 +1,27 @@
+Goal: make an efficient* robot
+
+Problem: only considers one parcel at a time; will skip over closer Parcels that havent been picked up and go all the way across the graph to pick up the next in the list.
+
+Solution(s):
+  >compute route for all packages and then take shortest
+  >if there are multiple shortest routes prefer the ones that go to pick up a package instead of delivering one
+
+This was really hard and i had to look at the answer from the book.
+
+in the answer their solution does this:
+  >first if the route length is 0 then we create a route for every parcel by mapping over the parcels array and returning an object for every parcel {route: findRoute(roadGraph, place, parcel.place), pickup:____}
+  >if the parcel was not brought with pickup is set to true
+  >if the parcel has been picked up pickup is set to false
+
+  >then a score function is created
+    >it takes a parcel object (created above)
+    >if pickup is true it recieves a score of .5-route.length
+    >if pickup is false it receives a score of 0-route.length
+    >every route score is negative but routes that pick up a package have an advantage
+
+    >then a route = routes.reduce((a, b)=>score(a)>score(b)?a:b).route
+
+    ////yikes deep breathe... here we go..
+
+    SO!
+    >this reduce function actually finds the shortest route and if it comes across another shortest route than that one becomes the shortest route etc. (TLDR it bubbles the shortest route out to the top)
